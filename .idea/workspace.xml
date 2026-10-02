@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31908365-b739-4462-b5ff-269f30404903" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/DoorState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/Door.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/Door.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/doorstates/DoorState.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/DoorState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/doorstates/Locked.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/Locked.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/doorstates/Unlocked.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/Unlocked.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

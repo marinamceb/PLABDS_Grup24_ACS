@@ -2,17 +2,44 @@ package baseNoStates;
 
 import baseNoStates.requests.RequestReader;
 import org.json.JSONObject;
+import doorstates.*;
 
 
 public class Door {
   private final String id;
   private boolean closed; // physically
+  private DoorState state; // estat de la porta (LOCKED/UNLOCKED)
 
+  // CONSTRUCTOR
   public Door(String id) {
     this.id = id;
     closed = true;
+    this.state = new Unlocked(this);
   }
 
+  // SETTERS
+  public void setState(DoorState doorstate){
+    this.state = doorstate;
+  }
+
+  public void setClosed(boolean closed){
+    this.closed = closed;
+  }
+
+  // GETTERS
+  public boolean isClosed() {
+    return closed;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public String getStateName() {
+    return state.getName();
+  }
+
+  // MÈTODES
   public void processRequest(RequestReader request) {
     // it is the Door that process the request because the door has and knows
     // its state, and if closed or open
@@ -28,25 +55,17 @@ public class Door {
   private void doAction(String action) {
     switch (action) {
       case Actions.OPEN:
-        if (closed) {
-          closed = false;
-        } else {
-          System.out.println("Can't open door " + id + " because it's already open");
-        }
+        state.open();
         break;
       case Actions.CLOSE:
-        if (closed) {
-          System.out.println("Can't close door " + id + " because it's already closed");
-        } else {
-          closed = true;
-        }
+        state.close();
         break;
       case Actions.LOCK:
-        // TODO
-        // fall through
+        state.lock();
+        break;
       case Actions.UNLOCK:
-        // TODO
-        // fall through
+        state.unlock();
+        break;
       case Actions.UNLOCK_SHORTLY:
         // TODO
         System.out.println("Action " + action + " not implemented yet");
@@ -57,18 +76,12 @@ public class Door {
     }
   }
 
-  public boolean isClosed() {
-    return closed;
-  }
 
-  public String getId() {
-    return id;
-  }
 
-  public String getStateName() {
-    return "unlocked";
-  }
 
+
+
+  // PROCESSAR FITXERS
   @Override
   public String toString() {
     return "Door{"

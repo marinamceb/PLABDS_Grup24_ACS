@@ -11,6 +11,11 @@ public abstract class DoorState {
     this.door = door;
   }
 
+  // GETTERS
+  public String getName(){
+    return name;
+  }
+
   // MÈTODES
   public abstract void open();
   public abstract void close();
