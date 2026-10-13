@@ -10,8 +10,8 @@ CLASSE DIRECTORYAREAS:
 */
 public class DirectoryAreas {
   // Atributs
-  private Area rootArea; // Arrel de l'arbre
-  private ArrayList<Door> allDoors = new ArrayList<>(); // Portes
+  private static Area rootArea; // Arrel de l'arbre
+  private static ArrayList<Door> allDoors = new ArrayList<>(); // Portes
 
   // Retorna l'arrel de l'edifici
   public Area getRootArea() {
@@ -19,7 +19,7 @@ public class DirectoryAreas {
   }
 
   //Construeix l'arbre complet de l'edifici amb particions, espais i portes.
-  public void makeAreas() {
+  public static void makeAreas() {
     // Inicialització de les particions
     Partition building = new Partition("building");
     Partition basement = new Partition("basement");
@@ -83,7 +83,7 @@ public class DirectoryAreas {
   }
 
   // Cerca una àrea pel seu ID de forma recursiva.
-  public Area findAreaById(String id) {
+  public static Area findAreaById(String id) {
     if(rootArea.id == null) {
       return null;
     }

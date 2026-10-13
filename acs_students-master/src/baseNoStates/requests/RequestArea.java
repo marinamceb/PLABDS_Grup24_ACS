@@ -1,6 +1,7 @@
 package baseNoStates.requests;
 
-import baseNoStates.Actions;
+import baseNoStates.*;
+import areas.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -64,9 +65,6 @@ public class RequestArea implements Request {
   // them to all of its doors. For some it may be authorized and action will be done, for others
   // it won't be authorized and nothing will happen to them.
   public void process() {
-    // commented out until Area, Space and Partition are implemented
-
-    /*
     // make the door requests and put them into the area request to be authorized later and
     // processed later
     Area area = DirectoryAreas.findAreaById(areaId);
@@ -85,6 +83,12 @@ public class RequestArea implements Request {
         requests.add(requestReader);
       }
     }
-     */
+
+  }
+
+  // ??? SESSIÓ 2
+  // retrieve "to" and "from" spaces of door return (user.canBeInSpace(fromSpace) && user.canBeInSpace(toSpace))
+  private void authorize(Door d, User u) {
+    // ???
   }
 }
