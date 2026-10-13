@@ -1,27 +1,37 @@
 package baseNoStates;
 
 import baseNoStates.requests.RequestReader;
+import areas.Space;
 import org.json.JSONObject;
 import doorstates.*;
 
 
 public class Door {
+  // ATRIBUTS
   private final String id;
   private boolean closed; // physically
   private DoorState state; // estat de la porta (LOCKED/UNLOCKED)
+  private Space fromSpace; // Espai on es troba el reader
+  private Space toSpace; // Espai al qual dona accés la porta
 
   // CONSTRUCTOR
-  public Door(String id) {
+  public Door(String id, Space fromSpace, Space toSpace) {
     this.id = id;
-    closed = true;
+    this.closed = true;
     this.state = new Unlocked(this);
+    this.fromSpace = fromSpace;
+    this.toSpace = toSpace;
+
+    // Si aquesta porta dona accés a un espai, afegim la porta a l'espai
+    if(toSpace!=null) {
+      toSpace.addDoor(this);
+    }
   }
 
   // SETTERS
   public void setState(DoorState doorstate){
     this.state = doorstate;
   }
-
   public void setClosed(boolean closed){
     this.closed = closed;
   }
@@ -30,13 +40,17 @@ public class Door {
   public boolean isClosed() {
     return closed;
   }
-
   public String getId() {
     return id;
   }
-
   public String getStateName() {
     return state.getName();
+  }
+  public Space getFromSpace() {
+    return fromSpace;
+  }
+  public Space getToSpace() {
+    return toSpace;
   }
 
   // MÈTODES
@@ -51,7 +65,6 @@ public class Door {
     }
     request.setDoorStateName(getStateName());
   }
-
   private void doAction(String action) {
     switch (action) {
       case Actions.OPEN:
@@ -76,11 +89,6 @@ public class Door {
     }
   }
 
-
-
-
-
-
   // PROCESSAR FITXERS
   @Override
   public String toString() {
@@ -90,7 +98,6 @@ public class Door {
         + ", state=" + getStateName()
         + "}";
   }
-
   public JSONObject toJson() {
     JSONObject json = new JSONObject();
     json.put("id", id);
