@@ -5,14 +5,14 @@ public class Unlocked extends DoorState{
 
   // CONSTRUCTOR
   public Unlocked(Door door) {
-    super(door); // Crida el constructor del pare
-    this.name = "unlocked"; // Li assigna l'estat UNLOCKED
+    super(door); // Calls the father's constructor
+    this.name = "unlocked"; // Assigns it the UNLOCKED state
   }
 
-  // OPEN: Obre la porta
+  // OPEN: Opens the door
   @Override
   public void open() {
-    // No sé si cal fer això:
+    // I don't know if that's necessary:
     /*
     if(door.isClosed()) {
       door.setClosed(false);
@@ -21,11 +21,11 @@ public class Unlocked extends DoorState{
     }
      */
 
-    // Faré només, pel moment, que s'obri (aplico el mateix criteri per la resta de mètodes)
+    // For the moment, I will only have it open (I am applying the same criterion to the rest of the methods)
     door.setClosed(false);
   }
 
-  // CLOSE: tanca la porta
+  // CLOSE: Closes the door
   @Override
   public void close() {
     /*
@@ -38,7 +38,7 @@ public class Unlocked extends DoorState{
     door.setClosed(true);
   }
 
-  // LOCK: bloqueja la porta si està tancada
+  // LOCK: Locks the door just if it's closed
   @Override
   public void lock() {
     /*
@@ -51,9 +51,9 @@ public class Unlocked extends DoorState{
     door.setState(new Locked(door));
   }
 
-  // UNLOCK: ja està desbloquejada
+  // UNLOCK: Unlocks the door (it's already unlocked)
   @Override
   public void unlock() {
-    // Ja està desbloquejada
+    // It's already unlocked
   }
 }

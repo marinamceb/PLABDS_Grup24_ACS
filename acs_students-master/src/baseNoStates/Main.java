@@ -13,11 +13,11 @@ public class Main {
     new WebServer();
     */
 
-    // Construeix la jerarquia d'àrees i portes
+    // Build the hierarchy of areas and doors
     DirectoryAreas.makeAreas();
-    // Carrega els usuaris del sistema
+    // Load the system users
     DirectoryUsers.makeUsers();
-    // Inicialitza l'ACU
+    // Inicializes the ACU
     new WebServer();
   }
 }

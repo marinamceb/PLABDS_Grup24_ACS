@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class User {
   private final String name;
   private final String credential;
-  private Area areas; // ??? SESSIÓ 2
+  private Area areas; // ??? SESSION 2
 
   public User(String name, String credential) {
     this.name = name;
@@ -23,13 +23,13 @@ public class User {
     return "User{name=" + name + ", credential=" + credential + "}";
   }
 
-  // ??? SESSIÓ 2
+  // ??? SESSION 2
   public Boolean canBeInSpace(Space sp) {
     // ???
     return null;
   }
 
-  // ??? SESSIÓ 2
+  // ??? SESSION 2
   private ArrayList<Space> getSpaces() {
     //???
     return null;

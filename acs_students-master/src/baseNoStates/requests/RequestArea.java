@@ -86,7 +86,7 @@ public class RequestArea implements Request {
 
   }
 
-  // ??? SESSIÓ 2
+  // ??? SESSION 2
   // retrieve "to" and "from" spaces of door return (user.canBeInSpace(fromSpace) && user.canBeInSpace(toSpace))
   private void authorize(Door d, User u) {
     // ???

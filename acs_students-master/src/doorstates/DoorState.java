@@ -2,7 +2,7 @@ package doorstates;
 import baseNoStates.Door;
 
 public abstract class DoorState {
-  // ATRIBUTS
+  // ATTRIBUTES
   protected Door door;
   protected String name;
 
@@ -16,7 +16,7 @@ public abstract class DoorState {
     return name;
   }
 
-  // MÈTODES
+  // METHODS
   public abstract void open();
   public abstract void close();
   public abstract void lock();
