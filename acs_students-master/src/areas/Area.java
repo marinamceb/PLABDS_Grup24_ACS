@@ -4,10 +4,10 @@ import baseNoStates.Door;
 import java.util.ArrayList;
 
 /*
-CLASSE AREA:
-* Classe abstracta base que representa el Component dins del patró de disseny Composite.
-* Defineix la interfície comuna i els mètodes abstractes (getDoorsGivingAccess, findAreaById, getSpaces)
-  per poder tractar de manera uniforme tant espais individuals (Space) com grups d'àrees (Partition).
+AREA CLASS:
+* Abstract base class representing the Component in the Composite design pattern.
+* Defines the common interface and abstract methods (getDoorsGivingAccess, findAreaById, getSpaces)
+to uniformly handle both individual spaces (Space) and groups of areas (Partition).
 */
 
 public abstract class Area {

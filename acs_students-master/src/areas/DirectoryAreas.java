@@ -5,49 +5,49 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /*
-CLASSE DIRECTORYAREAS:
-* Construeix i manté l'arbre de l'edifici.
+DIRECTORYAREAS CLASS:
+* Builds and maintains the building tree.
 */
 public class DirectoryAreas {
-  // Atributs
-  private static Area rootArea; // Arrel de l'arbre
-  private static ArrayList<Door> allDoors = new ArrayList<>(); // Portes
+  // Attributes
+  private static Area rootArea; // Root of the tree
+  private static ArrayList<Door> allDoors = new ArrayList<>(); // Doors
 
-  // Retorna l'arrel de l'edifici
+  // Returns the root of the tree
   public Area getRootArea() {
     return rootArea;
   }
 
-  //Construeix l'arbre complet de l'edifici amb particions, espais i portes.
+  // Construct the complete building tree with partitions, spaces, and doors.
   public static void makeAreas() {
-    // Inicialització de les particions
+    // Partition initialization
     Partition building = new Partition("building");
     Partition basement = new Partition("basement");
     Partition groundFloor = new Partition("groundFloor");
     Partition floor1 = new Partition("floor1");
 
-    // Afegir les plantes a l'edifici
+    // Add floors to the building
     building.addArea(basement);
     building.addArea(groundFloor);
     building.addArea((floor1));
 
-    // Creació d'espais
+    // Creation of spaces
     Space parking = new Space("parking");
     Space stairs = new Space("stairs");
     Space exterior = new Space("exterior");
     Space room1 = new Space("room1");
     Space room2 = new Space("room2");
     Space hall = new Space("hall");
-    // Space restRoom = new Space("restRoom"); // No té porta, no la fico a les particions :)
+    // Space restRoom = new Space("restRoom"); // It has no door, so I don't include it in the partitions
     Space room3 = new Space("room3");
     Space corridor = new Space("corridor");
     Space IT = new Space("IT");
 
-    // Afegir espais generals a l'edifici
+    // Add general spaces to the building
     building.addArea(exterior);
     building.addArea(stairs);
 
-    // Afegir espais a les particions
+    // Add spaces to the partitions
     basement.addArea(parking);
     groundFloor.addArea(room1);
     groundFloor.addArea(room2);
@@ -56,7 +56,7 @@ public class DirectoryAreas {
     floor1.addArea(corridor);
     floor1.addArea(IT);
 
-    // Crear portes: Door(id, fromSpace, toSpace)
+    // Create doors: Door(id, fromSpace, toSpace)
     Door d1 = new Door("D1", exterior, parking);
     Door d2 = new Door("D2", stairs, parking);
     Door d3 = new Door("D3", exterior, hall);
@@ -67,7 +67,7 @@ public class DirectoryAreas {
     Door d8 = new Door("D8", room3, corridor);
     Door d9 = new Door("D9", IT, corridor);
 
-    // Afegir portes a l'edifici
+    // Add doors to the building
     allDoors.add(d1);
     allDoors.add(d2);
     allDoors.add(d3);
@@ -78,11 +78,11 @@ public class DirectoryAreas {
     allDoors.add(d8);
     allDoors.add(d9);
 
-    // Guardar edifici a l'arrel
+    // Save the building in the root
     rootArea = building;
   }
 
-  // Cerca una àrea pel seu ID de forma recursiva.
+  // Searches for an area by its ID recursively
   public static Area findAreaById(String id) {
     if(rootArea.id == null) {
       return null;
@@ -90,7 +90,7 @@ public class DirectoryAreas {
     return rootArea.findAreaById(id);
   }
 
-  // Cerca una porta pel seu ID dins la llista de portes.
+  // Search for a door by its ID within the list of doors
   public Door findDoorById(String id) {
     for(Door door : allDoors) {
       if(door.getId().equals(id)) {
@@ -100,7 +100,7 @@ public class DirectoryAreas {
     return null;
   }
 
-  // Retorna la llista de totes les portes de l'edifici
+  // Returns the list of all the doors in the building
   public ArrayList<Door> getAllDoors() {
     return allDoors;
   }

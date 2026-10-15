@@ -4,38 +4,38 @@ import baseNoStates.Door;
 import java.util.ArrayList;
 
 /*
-CLASSE SPACE:
-* Representa un espai o habitació concreta de l'edifici.
-* Representa una classe Leaf dins del patró de disseny Composite.
-* Conté la llista de portes que donen accès directe a l'espai.
-* Com a node fulla, la cerca d'àrees es limita a la seva pròpia comprovació i retorna únicament
-  les seves portes associades.
+SPACE CLASS:
+* Represents a specific space or room within the building.
+* Represents a Leaf class within the Composite design pattern.
+* Contains the list of doors that provide direct access to the space.
+* As a leaf node, the search for areas is limited to its own check and returns only
+  its associated doors.
 */
 
 public class Space extends Area {
-  // Atribut: Array de portes que serveixen per accedir a l'espai.
+  // Attribute: Array of doors used to access the space
   private ArrayList<Door> doors;
 
-  // Constructor: Id de l'àrea i inicialitza l'array de portes.
+  // Constructor: Id of the area and initializes the gate array
   public Space(String id) {
     super(id); //Crida al constructor Area(id)
     this.doors = new ArrayList<>();
   }
 
-  // Afegeix una porta per accedir a l'espai.
+  // Add a door to access the space
   public void addDoor(Door door) {
     if(!doors.contains(door)) {
       doors.add(door);
     }
   }
 
-  // Retorna les portes del'espai.
+  // Return the doors of space
   @Override
   public ArrayList<Door> getDoorsGivingAccess() {
     return doors;
   }
 
-  // Es retorna a ell mateix si l'id coincideix o NULL si no.
+  // It returns itself if the ID matches, or NULL otherwise
   @Override
   public Area findAreaById(String id) {
     if(this.id.equals(id)) {
@@ -44,7 +44,7 @@ public class Space extends Area {
     return null;
   }
 
-  // Retorna un Array amb ell mateix.
+  // Returns an array containing itself
   @Override
   public ArrayList<Space> getSpaces() {
     ArrayList<Space> spaces = new ArrayList<>();

@@ -4,29 +4,29 @@ import baseNoStates.Door;
 import java.util.ArrayList;
 
 /*
-CLASSE PARTITION:
-* Representa una agrupació jeràrquica d'àrees; la classe Composite dins del patró de disseny Composite.
-* Conté el conjunt de sub-àrees (tant Partition com Space).
+PARTITION CLASS:
+* Represents a hierarchical grouping of areas; the Composite class within the Composite design pattern.
+* Contains a set of sub-areas (both Partition and Space).
 */
 
 public class Partition extends Area {
-  // Atribut: Llistat d'àrees que conté la partició.
+  // Attribute: List of areas contained in the partition
   private ArrayList<Area> areas;
 
-  // Constructor: Id de l'àrea i inicialitza l'array d'àrees.
-  public Partition(String id) {
+  // Constructor: Id of the area and initializes the area array
+  Partition(String id) {
     super(id); //Crida al constructor Area(id)
     this.areas = new ArrayList<>();
   }
 
-  // Afegeix una àrea a la partició.
+  // Add an area to the partition
   public void addArea(Area area) {
     if(!areas.contains(area)) {
       areas.add(area);
     }
   }
 
-  // Retorna les portes de les àrees de la partició.
+  // Returns the ports of the partition areas
   @Override
   public ArrayList<Door> getDoorsGivingAccess() {
     ArrayList<Door> doors = new ArrayList<>();
@@ -41,7 +41,7 @@ public class Partition extends Area {
     return doors;
   }
 
-  // Es retorna a ell mateix o una de les àrees que conté si l'id coincideix, o NULL si cap id coincideix.
+  // It returns itself or one of the areas it contains if the ID matches, or NULL if no ID matches.
   @Override
   public Area findAreaById(String id) {
     if(this.id.equals(id)) {
@@ -57,7 +57,7 @@ public class Partition extends Area {
     return null;
   }
 
-  // Retorna tots els espais que conté.
+  // Returns all the spaces it contains
   @Override
   public ArrayList<Space> getSpaces() {
     ArrayList<Space> spaces = new ArrayList<>();
