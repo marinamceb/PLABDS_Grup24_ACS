@@ -1,62 +1,44 @@
 package baseNoStates;
 
 import baseNoStates.requests.RequestReader;
-import areas.Space;
 import org.json.JSONObject;
-import doorstates.*;
 
-
+// Represents a physical door connecting an origin (fromSpace) and a destination (toSpace).
+// Uses the State design pattern to dynamically change its behavior (Locked, Unlocked, etc.).
 public class Door {
-  // ATRIBUTS
   private final String id;
   private boolean closed; // physically
-  private DoorState state; // estat de la porta (LOCKED/UNLOCKED)
-  private Space fromSpace; // Espai on es troba el reader
-  private Space toSpace; // Espai al qual dona accés la porta
+  private DoorState state; // Keeps the current state of the door
 
-  // CONSTRUCTOR
+  private Space fromSpace;
+  private Space toSpace;
+
   public Door(String id, Space fromSpace, Space toSpace) {
     this.id = id;
-    this.closed = true;
-    this.state = new Unlocked(this);
+    closed = true;
+    this.state = new Unlocked(this); // The initial state is "unlocked"
     this.fromSpace = fromSpace;
     this.toSpace = toSpace;
 
-    // Si aquesta porta dona accés a un espai, afegim la porta a l'espai
-    if(toSpace!=null) {
+    if (toSpace != null) {
       toSpace.addDoor(this);
+    }
+
+    if (fromSpace != null) {
+      fromSpace.addDoor(this);
     }
   }
 
-  // SETTERS
-  public void setState(DoorState doorstate){
-    this.state = doorstate;
-  }
-  public void setClosed(boolean closed){
-    this.closed = closed;
-  }
-
-  // GETTERS
-  public boolean isClosed() {
-    return closed;
-  }
-  public String getId() {
-    return id;
-  }
-  public String getStateName() {
-    return state.getName();
-  }
   public Space getFromSpace() {
     return fromSpace;
   }
+
   public Space getToSpace() {
     return toSpace;
   }
 
-  // MÈTODES
   public void processRequest(RequestReader request) {
-    // it is the Door that process the request because the door has and knows
-    // its state, and if closed or open
+    // Security check: Action is only processed if the user has access to both connected spaces
     if (request.isAuthorized()) {
       String action = request.getAction();
       doAction(action);
@@ -65,7 +47,10 @@ public class Door {
     }
     request.setDoorStateName(getStateName());
   }
+
   private void doAction(String action) {
+    // Delegates the execution of the requested action to the current state object.
+    // This avoids massive if/else structures and makes adding new states effortless.
     switch (action) {
       case Actions.OPEN:
         state.open();
@@ -80,8 +65,7 @@ public class Door {
         state.unlock();
         break;
       case Actions.UNLOCK_SHORTLY:
-        // TODO
-        System.out.println("Action " + action + " not implemented yet");
+        state.unlockShortly();
         break;
       default:
         assert false : "Unknown action " + action;
@@ -89,7 +73,28 @@ public class Door {
     }
   }
 
-  // PROCESSAR FITXERS
+  public boolean isClosed() {
+    return closed;
+  }
+
+  // Updates the physical state of the door (closed or open)
+  public void setClosed(boolean closed) {
+    this.closed = closed;
+  }
+
+  // Transitions the door to a new logical state
+  public void setState(DoorState state) {
+    this.state = state;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public String getStateName() {
+    return state.name;
+  }
+
   @Override
   public String toString() {
     return "Door{"
@@ -98,6 +103,7 @@ public class Door {
         + ", state=" + getStateName()
         + "}";
   }
+
   public JSONObject toJson() {
     JSONObject json = new JSONObject();
     json.put("id", id);
