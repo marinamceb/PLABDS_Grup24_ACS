@@ -97,7 +97,9 @@ public class RequestReader implements Request {
     } else {
       //TODO: get the who, where, when and what in order to decide, and if not
       // authorized add the reason(s)
-      authorized = true;
+      boolean canBeInFrom = user.canBeInSpace(door.getFromSpace());
+      boolean canBeInTo = user.canBeInSpace(door.getFromSpace());
+      authorized = canBeInFrom && canBeInTo;
     }
   }
 }
