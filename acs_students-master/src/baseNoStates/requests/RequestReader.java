@@ -1,9 +1,9 @@
 package baseNoStates.requests;
 
-import baseNoStates.DirectoryDoors;
-import baseNoStates.DirectoryUsers;
-import baseNoStates.Door;
-import baseNoStates.User;
+import baseNoStates.directories.DirectoryDoors;
+import baseNoStates.directories.DirectoryUsers;
+import baseNoStates.states.Door;
+import baseNoStates.users.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -97,9 +97,10 @@ public class RequestReader implements Request {
     } else {
       //TODO: get the who, where, when and what in order to decide, and if not
       // authorized add the reason(s)
-      boolean canBeInFrom = user.canBeInSpace(door.getFromSpace());
-      boolean canBeInTo = user.canBeInSpace(door.getFromSpace());
-      authorized = canBeInFrom && canBeInTo;
+      authorized = user.canSendRequests(now)
+          && user.canBeInSpace(door.getFromSpace())
+          && user.canBeInSpace(door.getToSpace())
+          && user.canDoAction(action);
     }
   }
 }
