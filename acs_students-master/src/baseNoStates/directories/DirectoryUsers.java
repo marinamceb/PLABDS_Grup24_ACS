@@ -1,7 +1,7 @@
 package baseNoStates.directories;
 
 import baseNoStates.areas.Area;
-import baseNoStates.User;
+import baseNoStates.users.User;
 
 import java.util.ArrayList;
 
@@ -23,26 +23,18 @@ public final class DirectoryUsers {
     // users without any privilege, just to keep temporally users instead of deleting them,
     // this is to withdraw all permissions but still to keep user data to give back
     // permissions later
-    users.add(new User("Bernat", "12345"));
-    users.add(new User("Blai", "77532"));
+    users.add(new User("Bernat", "12345", DirectoryUserGroup.findGroupByName("Blank")));
+    users.add(new User("Blai", "77532", DirectoryUserGroup.findGroupByName("Blank")));
 
     // employees :
     // Sep. 1 this year to Mar. 1 next year
     // week days 9-17h
     // just shortly unlock
     // ground floor, floor1, exterior, stairs (this, for all), that is, everywhere but the parking
-    User ernest = new User("Ernest", "74984");
-    ernest.addArea(ground);
-    ernest.addArea(floor1);
-    ernest.addArea(stairs);
-    ernest.addArea(exterior);
+    User ernest = new User("Ernest", "74984", DirectoryUserGroup.findGroupByName("Employee"));
     users.add(ernest);
 
-    User eulalia = new User("Eulalia", "43295");
-    eulalia.addArea(ground);
-    eulalia.addArea(floor1);
-    eulalia.addArea(stairs);
-    eulalia.addArea(exterior);
+    User eulalia = new User("Eulalia", "43295", DirectoryUserGroup.findGroupByName("Employee"));
     users.add(eulalia);
 
 
@@ -51,12 +43,10 @@ public final class DirectoryUsers {
     // week days + saturday, 8-20h
     // all actions
     // all spaces
-    User manuel = new User("Manel", "95783");
-    manuel.addArea(building);
+    User manuel = new User("Manel", "95783", DirectoryUserGroup.findGroupByName("Manager"));
     users.add(manuel);
 
-    User marta = new User("Marta", "05827");
-    marta.addArea(building);
+    User marta = new User("Marta", "05827", DirectoryUserGroup.findGroupByName("Manager"));
     users.add(marta);
 
     // admin :
@@ -64,8 +54,7 @@ public final class DirectoryUsers {
     // all days of the week
     // all actions
     // all spaces
-    User ana = new User("Ana", "11343");
-    ana.addArea(building);
+    User ana = new User("Ana", "11343", DirectoryUserGroup.findGroupByName("Admin"));
     users.add(ana);
   }
 
