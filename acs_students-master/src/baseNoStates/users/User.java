@@ -23,6 +23,15 @@ public class User {
     return credential;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  // Needed to build the denial reasons ("... for group Employee")
+  public String getGroupName() {
+    return group.getName();
+  }
+
   public boolean canSendRequests(LocalDateTime now) {
     return group.canSendRequests(now);
   }

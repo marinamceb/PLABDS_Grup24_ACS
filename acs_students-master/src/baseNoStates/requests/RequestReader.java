@@ -95,13 +95,27 @@ public class RequestReader implements Request {
       authorized = false;
       addReason("user doesn't exists");
     } else {
-      //TODO: get the who, where, when and what in order to decide, and if not
-      // authorized add the reason(s)
-      authorized = user.canSendRequests(now)
-          && user.canBeInSpace(door.getFromSpace())
-          && user.canBeInSpace(door.getToSpace())
-          && user.canDoAction(action);
+      userName = user.getName();
+      String group = user.getGroupName();
+
+      // All the conditions are checked (no early exit) so that the answer lists every
+      // reason why the request is denied, not only the first one found.
+      if (!user.canSendRequests(now)) {
+        addReason("Present date and/or time not in schedule");
+      }
+      // who + where: the user must be allowed in both spaces connected by the door
+      if (!user.canBeInSpace(door.getFromSpace())) {
+        addReason("Not allowed origin " + door.getFromSpace().getId() + " for group " + group);
+      }
+      if (!user.canBeInSpace(door.getToSpace())) {
+        addReason("Not allowed destination " + door.getToSpace().getId() + " for group " + group);
+      }
+      // what
+      if (!user.canDoAction(action)) {
+        addReason("Not allowed action " + action + " for group " + group);
+      }
+      // authorized only if no reason was found
+      authorized = reasons.isEmpty();
     }
   }
 }
-

@@ -26,23 +26,28 @@ public class Clock implements Observable {
   }
 
   // Ensures only one global clocke xists in the entire system
-  public static Clock getInstance() {
+  // synchronized: every request runs in its own thread, so two of them could create
+  // the clock at the same time and we would end up with two clocks
+  public static synchronized Clock getInstance() {
     if (instance == null) {
       instance = new Clock();
     }
     return instance;
   }
 
+  // The lock must be the shared list (the same one notifyObservers locks), not the
+  // observer: locking different objects does not prevent the clock thread and a request
+  // thread from modifying the list at the same time
   @Override
   public void addObserver(Observer observer) {
-    synchronized (observer) {
+    synchronized (observers) {
       observers.add(observer);
     }
   }
 
   @Override
   public void deleteObserver(Observer observer) {
-    synchronized (observer) {
+    synchronized (observers) {
       observers.remove(observer);
     }
   }

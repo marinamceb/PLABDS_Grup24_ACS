@@ -100,10 +100,10 @@ public class Door {
   @Override
   public String toString() {
     return "Door{"
-        + ", id='" + id + '\''
-        + ", closed=" + closed
-        + ", state=" + getStateName()
-        + "}";
+            + ", id='" + id + '\''
+            + ", closed=" + closed
+            + ", state=" + getStateName()
+            + "}";
   }
 
   public JSONObject toJson() {
@@ -111,6 +111,9 @@ public class Door {
     json.put("id", id);
     json.put("state", getStateName());
     json.put("closed", closed);
+    // The client apps need to know which two spaces the door connects
+    json.put("originSpace", fromSpace.getId());
+    json.put("destinationSpace", toSpace.getId());
     return json;
   }
 }
