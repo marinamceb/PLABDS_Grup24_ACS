@@ -1,0 +1,322 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package areas {
+    abstract class Area {
+        # id : String
+        + Area(id : String)
+        + getId() : String
+        {abstract} + getDoorsGivingAccess() : Door[]
+        {abstract} + findAreaById(id : String) : Area
+        {abstract} + getSpaces() : Space[]
+    }
+
+    class Partition {
+        - children : Area[]
+        + Partition(id : String)
+        + addArea(area : Area) : void
+        + getDoorsGivingAccess() : Door[]
+        + findAreaById(searchId : String) : Area
+        + getSpaces() : Space[]
+    }
+
+    class Space {
+        - doors : Door[]
+        + Space(id : String)
+        + addDoor(door : Door) : void
+        + getDoorsGivingAccess() : Door[]
+        + findAreaById(searchId : String) : Area
+        + getSpaces() : Space[]
+    }
+
+    class DirectoryAreas {
+        - {static} rootArea : Area
+        - {static} {readOnly} allDoors : Door[]
+        + {static} makeAreas() : void
+        + {static} findAreaById(id : String) : Area
+        + {static} findDoorById(doorId : String) : Door
+        + {static} getAllDoors() : Door
+    }
+}
+
+package doors {
+    class Door {
+        -id : String
+        -closed : boolean
+        -state : DoorState
+        -fromSpace : Space
+        -toSpace : Space
+        +Door(id : String, fromSpace : Space, toSpace : Space)
+        +getFromSpace() : Space
+        +getToSpace() : Space
+        +processRequest(request : RequestReader) : void
+        -doAction(action : String) : void
+        +isClosed() : boolean
+        +getId() : String
+        +getStateName() : String
+        +setClosed(closed : boolean) : void
+        +setState(state : DoorState) : void
+        +toString() : String
+        +toJson() : JSONObject
+    }
+}
+
+package doorstates {
+    class Actions {
+        {static} +LOCK : String
+        {static} +UNLOCK : String
+        {static} +OPEN : String
+        {static} +CLOSE : String
+        {static} +UNLOCK_SHORTLY : String
+    }
+
+    class States {
+        {static} +LOCKED : String
+        {static} +UNLOCKED : String
+        {static} +UNLOCKED_SHORTLY : String
+        {static} +PROPPED : String
+    }
+
+    abstract class DoorState {
+        #door : Door
+        #name : String
+        +DoorState(door : Door)
+        +getName() : String
+        +open() : void
+        +close() : void
+        +lock() : void
+        +unlock() : void
+        +unlockShortly() : void
+    }
+
+    class Locked {
+        +Locked(door : Door)
+        +open() : void
+        +close() : void
+        +lock() : void
+        +unlock() : void
+        +unlockShortly() : void
+    }
+
+    class Propped {
+        +Propped(door : Door)
+        +close() : void
+    }
+
+    class Unlocked {
+        +Unlocked(door : Door)
+        +open() : void
+        +close() : void
+        +lock() : void
+        +unlock() : void
+    }
+
+    class UnlockedShortly {
+        -{static} TIME_LIMIT : int
+        -elapsedSeconds : int
+        +UnlockedShortly(door : Door)
+        +open() : void
+        +close() : void
+        +lock() : void
+        +unlock() : void
+        +update() : void
+    }
+}
+
+package observers {
+    interface Observable {
+        + addObserver(observer : Observer) : void
+        + deleteObserver(observer : Observer) : void
+    }
+
+    interface Observer {
+        + update() : void
+    }
+
+    class Clock {
+        - {static} instance : Clock
+        - timer : Timer
+        - observers : Observer[]
+        - Clock()
+        + {static} getInstance() : Clock
+        + addObserver(observer : Observer) : void
+        + deleteObserver(observer : Observer) : void
+        - notifyObservers() : void
+    }
+}
+
+package requests {
+    interface Request {
+        + answerToJson() : JSONObject
+        + toString() : String
+        + process() : void
+    }
+
+    class RequestArea {
+        - credential : String
+        - action : String
+        - areaId : String
+        - now : LocalDateTime
+        - requests : RequestReader[]
+        + RequestArea(credential : String, action : String, now : LocalDateTime, areaId : String)
+        + getAction() : String
+        + answerToJson() : JSONObject
+        + toString() : String
+        + process() : void
+    }
+
+    class RequestReader {
+        - credential : String
+        - action : String
+        - now : LocalDateTime
+        - doorId : String
+        - userName : String
+        - authorized : boolean
+        - reasons : String[]
+        - doorStateName : String
+        - doorClosed : boolean
+        + RequestReader(credential : String, action : String, now : LocalDateTime, doorId : String)
+        + setDoorStateName(name : String) : void
+        + getAction() : String
+        + isAuthorized() : boolean
+        + addReason(reason : String) : void
+        + toString() : String
+        + answerToJson() : JSONObject
+        + process() : void
+        - authorize(user : User, door : Door) : void
+    }
+
+    class RequestRefresh {
+        - jsonsDoors : JSONObject[]
+        + RequestRefresh()
+        + answerToJson() : JSONObject
+        + toString() : String
+        + process() : void
+    }
+}
+
+package users {
+    class DirectoryUserGroup {
+        - {static} userGroups : UserGroup[]
+        + {static} makeUserGroups() : void
+        + {static} findGroupByName(name : String) : UserGroup
+    }
+
+    class DirectoryUsers {
+        - {static} users : User[]
+        + {static} makeUsers() : void
+        + {static} findUserByCredential(credential : String) : User
+    }
+
+    class Schedule {
+        - startDate : LocalDate
+        - endDate : LocalDate
+        - startTime : LocalTime
+        - endTime : LocalTime
+        - daysOfWeeks : DayOfWeek[]
+        + Schedule(startDate : LocalDate, endDate : LocalDate, startTime : LocalTime, endTime : LocalTime, daysOfWeek : DayOfWeek[])
+        + canSendRequests(now : LocalDateTime) : boolean
+    }
+
+    class User {
+        - name : String
+        - credential : String
+        - group : UserGroup
+        + User(name : String, credential : String, group : UserGroup)
+        + getCredential() : String
+        + getName() : String
+        + getGroupName() : String
+        + canSendRequests(now : LocalDateTime) : boolean
+        + canDoAction(action : String) : boolean
+        + canBeInSpace(sp : Space) : boolean
+        + toString() : String
+    }
+
+    class UserGroup {
+        - name : String
+        - schedule : Schedule
+        - actions : String[]
+        - areas : Area[]
+        + UserGroup(name : String, schedule : Schedule, actions : String[], areas : Area[])
+        + getName() : String
+        + canSendRequests(now : LocalDateTime) : boolean
+        + canDoAction(action : String) : boolean
+        + canBeInSpace(space : Space) : boolean
+    }
+}
+
+class Main {
+    + {static} main(args : String[]) : void
+}
+
+class WebServer {
+    - {static} PORT : int
+    - {static} formatter : DateTimeFormatter
+    + WebServer()
+}
+
+'areas
+Area <|-- Partition
+Area <|-- Space
+Partition "1" *-- "0..*" Area : children
+Space "0..*" --> "0..*" Door : doors
+DirectoryAreas ..> Area : rootArea
+DirectoryAreas ..> Partition
+DirectoryAreas ..> Space
+DirectoryAreas ..> Door
+
+'doors
+Door --> "0..1" Space : fromSpace
+Door --> "0..1" Space : toSpace
+Door --> DoorState : state
+Door ..> RequestReader
+Door ..> JSONObject
+
+'door states
+DoorState <|-- Locked
+DoorState <|-- Propped
+DoorState <|-- Unlocked
+DoorState <|-- UnlockedShortly
+UnlockedShortly ..|> Observer
+DoorState --> Door : door
+
+'observers
+Clock ..|> Observable
+Clock o--> "*" Observer : "observers"
+
+'requests
+Request <|.. RequestArea
+Request <|.. RequestReader
+Request <|.. RequestRefresh
+RequestArea "1" *-- "0..*" RequestReader : requests
+RequestReader ..> User
+RequestReader ..> Door
+RequestReader ..> DirectoryUsers
+RequestReader ..> DirectoryAreas
+RequestArea ..> Area
+RequestArea ..> DirectoryAreas
+RequestRefresh ..> Door
+RequestRefresh ..> DirectoryAreas
+
+'users
+DirectoryUserGroup ..> UserGroup
+DirectoryUserGroup ..> Schedule
+DirectoryUserGroup ..> Area
+DirectoryUsers ..> User
+DirectoryUsers ..> UserGroup
+DirectoryUsers ..> DirectoryUserGroup
+DirectoryUsers ..> Area
+User "0..*" --> "1" UserGroup : group
+UserGroup "0..*" --> "1" Schedule : schedule
+UserGroup ..> Area : areas
+UserGroup ..> Space
+User ..> Space
+
+'src
+Main ..> DirectoryAreas
+Main ..> DirectoryUserGroup
+Main ..> DirectoryUsers
+Main ..> WebServer
+
+
+@enduml

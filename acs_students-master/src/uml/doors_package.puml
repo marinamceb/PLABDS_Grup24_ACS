@@ -1,0 +1,47 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package doors {
+
+    class Door {
+        -id : String
+        -closed : boolean
+        -state : DoorState
+        -fromSpace : Space
+        -toSpace : Space
+
+        +Door(id : String, fromSpace : Space, toSpace : Space)
+        +getFromSpace() : Space
+        +getToSpace() : Space
+        +processRequest(request : RequestReader) : void
+        -doAction(action : String) : void
+        +isClosed() : boolean
+        +getId() : String
+        +getStateName() : String
+        +setClosed(closed : boolean) : void
+        +setState(state : DoorState) : void
+        +toString() : String
+        +toJson() : JSONObject
+    }
+}
+
+package areas {
+    class Space
+}
+
+package doorstates {
+    abstract class DoorState
+}
+
+package requests {
+    class RequestReader
+}
+
+Door --> "0..1" Space : fromSpace
+Door --> "0..1" Space : toSpace
+Door --> DoorState : state
+Door ..> RequestReader
+Door ..> JSONObject
+
+@enduml

@@ -81,6 +81,14 @@ public class Door {
     return closed;
   }
 
+  public String getId() {
+    return id;
+  }
+
+  public String getStateName() {
+    return state.getName();
+  }
+
   // Updates the physical state of the door (closed or open)
   public void setClosed(boolean closed) {
     this.closed = closed;
@@ -89,14 +97,6 @@ public class Door {
   // Transitions the door to a new logical state
   public void setState(DoorState state) {
     this.state = state;
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public String getStateName() {
-    return state.getName();
   }
 
   @Override

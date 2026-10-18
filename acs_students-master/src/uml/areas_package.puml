@@ -1,0 +1,61 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package areas {
+
+    abstract class Area {
+        # id : String
+
+        + Area(id : String)
+        + getId() : String
+        {abstract} + getDoorsGivingAccess() : ArrayList<Door>
+        {abstract} + findAreaById(id : String) : Area
+        {abstract} + getSpaces() : ArrayList<Space>
+    }
+
+    class Partition {
+        - children : ArrayList<Area>
+
+        + Partition(id : String)
+        + addArea(area : Area) : void
+        + getDoorsGivingAccess() : ArrayList<Door>
+        + findAreaById(searchId : String) : Area
+        + getSpaces() : ArrayList<Space>
+    }
+
+    class Space {
+        - doors : ArrayList<Door>
+
+        + Space(id : String)
+        + addDoor(door : Door) : void
+        + getDoorsGivingAccess() : ArrayList<Door>
+        + findAreaById(searchId : String) : Area
+        + getSpaces() : ArrayList<Space>
+    }
+
+    class DirectoryAreas {
+        - {static} rootArea : Area
+        - {static} {readOnly} allDoors : ArrayList<Door>
+
+        + {static} makeAreas() : void
+        + {static} findAreaById(id : String) : Area
+        + {static} findDoorById(doorId : String) : Door
+        + {static} getAllDoors() : ArrayList<Door>
+    }
+}
+
+package doors {
+    class Door
+}
+
+Area <|-- Partition
+Area <|-- Space
+Partition "1" *-- "0..*" Area : children
+Space "0..*" --> "0..*" Door : doors
+DirectoryAreas ..> Area : rootArea
+DirectoryAreas ..> Partition
+DirectoryAreas ..> Space
+DirectoryAreas ..> Door
+
+@enduml

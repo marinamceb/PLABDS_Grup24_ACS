@@ -1,0 +1,80 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package users {
+
+    class DirectoryUserGroup {
+        - {static} {readOnly} userGroups : List<UserGroup>
+
+        + {static} makeUserGroups() : void
+        + {static} findGroupByName(name : String) : UserGroup
+    }
+
+    class DirectoryUsers {
+        - {static} {readOnly} users : ArrayList<User>
+
+        + {static} makeUsers() : void
+        + {static} findUserByCredential(credential : String) : User
+    }
+
+    class Schedule {
+        - {readOnly} startDate : LocalDate
+        - {readOnly} endDate : LocalDate
+        - {readOnly} startTime : LocalTime
+        - {readOnly} endTime : LocalTime
+        - {readOnly} daysOfWeeks : List<DayOfWeek>
+
+        + Schedule(startDate : LocalDate, endDate : LocalDate, startTime : LocalTime, endTime : LocalTime, daysOfWeek : List<DayOfWeek>)
+        + canSendRequests(now : LocalDateTime) : boolean
+    }
+
+    class User {
+        - {readOnly} name : String
+        - {readOnly} credential : String
+        - {readOnly} group : UserGroup
+
+        + User(name : String, credential : String, group : UserGroup)
+        + getCredential() : String
+        + getName() : String
+        + getGroupName() : String
+        + canSendRequests(now : LocalDateTime) : boolean
+        + canDoAction(action : String) : boolean
+        + canBeInSpace(sp : Space) : boolean
+        + toString() : String
+    }
+
+    class UserGroup {
+        - {readOnly} name : String
+        - {readOnly} schedule : Schedule
+        - {readOnly} actions : List<String>
+        - {readOnly} areas : List<Area>
+
+        + UserGroup(name : String, schedule : Schedule, actions : List<String>, areas : List<Area>)
+        + getName() : String
+        + canSendRequests(now : LocalDateTime) : boolean
+        + canDoAction(action : String) : boolean
+        + canBeInSpace(space : Space) : boolean
+    }
+}
+
+package areas {
+    class Area
+    class Space
+    class DirectoryAreas
+}
+
+DirectoryUserGroup ..> UserGroup
+DirectoryUserGroup ..> Schedule
+DirectoryUserGroup ..> Area
+DirectoryUsers ..> UserGroup
+DirectoryUsers ..> DirectoryUserGroup
+DirectoryUsers ..> Area
+DirectoryUsers --> "0..*" User : users
+User "0..*" --> "1" UserGroup : group
+UserGroup "0..*" --> "1" Schedule : schedule
+UserGroup ..> Area : areas
+UserGroup ..> Space
+User ..> Space
+
+@enduml

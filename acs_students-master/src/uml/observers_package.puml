@@ -1,0 +1,34 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package observers {
+
+    interface Observer {
+        +update() : void
+    }
+
+    interface Observable {
+        +addObserver(observer : Observer) : void
+        +deleteObserver(observer : Observer) : void
+    }
+
+    class Clock {
+        -{static} instance : Clock
+        -timer : Timer
+        -observers : List<Observer>
+
+        -Clock()
+        +{static} {synchronized} getInstance() : Clock
+        +addObserver(observer : Observer) : void
+        +deleteObserver(observer : Observer) : void
+        -notifyObservers() : void
+    }
+}
+
+Clock ..|> Observable
+Clock o--> "*" Observer : "observers"
+Clock ..> Timer
+Clock ..> TimerTask
+
+@enduml

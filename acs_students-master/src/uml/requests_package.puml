@@ -1,0 +1,72 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package requests {
+
+    interface Request {
+        +answerToJson() : JSONObject
+        +toString() : String
+        +process() : void
+    }
+
+    class RequestArea {
+        -credential : String
+        -action : String
+        -areaId : String
+        -now : LocalDateTime
+        -requests : ArrayList<RequestReader>
+
+        +RequestArea(credential : String, action : String, now : LocalDateTime, areaId : String)
+        +getAction() : String
+        +answerToJson() : JSONObject
+        +toString() : String
+        +process() : void
+    }
+
+    class RequestReader {
+        -credential : String
+        -action : String
+        -now : LocalDateTime
+        -doorId : String
+        -userName : String
+        -authorized : boolean
+        -reasons : ArrayList<String>
+        -doorStateName : String
+        -doorClosed : boolean
+
+        +RequestReader(credential : String, action : String, now : LocalDateTime, doorId : String)
+        +setDoorStateName(name : String) : void
+        +getAction() : String
+        +isAuthorized() : boolean
+        +addReason(reason : String) : void
+        +toString() : String
+        +answerToJson() : JSONObject
+        +process() : void
+        -authorize(user : User, door : Door) : void
+    }
+
+    class RequestRefresh {
+        -jsonsDoors : ArrayList<JSONObject>
+
+        +answerToJson() : JSONObject
+        +toString() : String
+        +process() : void
+    }
+}
+
+Request <|.. RequestArea
+Request <|.. RequestReader
+Request <|.. RequestRefresh
+RequestArea "1" *-- "0..*" RequestReader : requests
+RequestReader ..> User
+RequestReader ..> Door
+RequestReader ..> DirectoryUsers
+RequestReader ..> DirectoryAreas
+RequestArea ..> Area
+RequestArea ..> Door
+RequestArea ..> DirectoryAreas
+RequestRefresh ..> Door
+RequestRefresh ..> DirectoryAreas
+
+@enduml

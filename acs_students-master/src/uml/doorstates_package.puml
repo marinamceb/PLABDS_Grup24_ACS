@@ -1,0 +1,86 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package doorstates {
+
+    class Actions {
+        {static} +LOCK : String
+        {static} +UNLOCK : String
+        {static} +OPEN : String
+        {static} +CLOSE : String
+        {static} +UNLOCK_SHORTLY : String
+    }
+
+    class States {
+        {static} +LOCKED : String
+        {static} +UNLOCKED : String
+        {static} +UNLOCKED_SHORTLY : String
+        {static} +PROPPED : String
+    }
+
+    abstract class DoorState {
+        #door : Door
+        #name : String
+
+        +DoorState(door : Door)
+        +getName() : String
+        +open() : void
+        +close() : void
+        +lock() : void
+        +unlock() : void
+        +unlockShortly() : void
+    }
+
+    class Locked {
+        +Locked(door : Door)
+        +open() : void
+        +close() : void
+        +lock() : void
+        +unlock() : void
+        +unlockShortly() : void
+    }
+
+    class Propped {
+        +Propped(door : Door)
+        +close() : void
+    }
+
+    class Unlocked {
+        +Unlocked(door : Door)
+        +open() : void
+        +close() : void
+        +lock() : void
+        +unlock() : void
+    }
+
+    class UnlockedShortly {
+        -{static} TIME_LIMIT : int
+        -elapsedSeconds : int
+
+        +UnlockedShortly(door : Door)
+        +open() : void
+        +close() : void
+        +lock() : void
+        +unlock() : void
+        +update() : void
+    }
+}
+
+package doors {
+    class Door
+}
+
+package observers {
+    interface Observer
+    class Clock
+}
+
+DoorState <|-- Locked
+DoorState <|-- Propped
+DoorState <|-- Unlocked
+DoorState <|-- UnlockedShortly
+UnlockedShortly ..|> Observer
+DoorState --> Door : door
+
+@enduml
