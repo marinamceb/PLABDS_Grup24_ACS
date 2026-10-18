@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="31908365-b739-4462-b5ff-269f30404903" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/doors/Door.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doors/Door.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/uml/base_no_states.png" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/antics/base_no_states.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/uml/base_no_states.puml" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/antics/base_no_states.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/uml/package_requests.png" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/antics/package_requests.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/uml/package_requests.puml" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/antics/package_requests.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/uml/package_states.png" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/antics/package_states.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/uml/package_states.puml" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/antics/package_states.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/uml/vells/base_no_states_old.png" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/baseNoStates/base_no_states_old.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/uml/vells/base_no_states_old.puml" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/baseNoStates/base_no_states_old.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/uml/vells/package_requests_old.png" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/baseNoStates/package_requests_old.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/uml/vells/package_requests_old.puml" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/baseNoStates/package_requests_old.puml" afterDir="false" />
-    </list>
+    <list default="true" id="31908365-b739-4462-b5ff-269f30404903" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
