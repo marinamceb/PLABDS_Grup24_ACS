@@ -1,0 +1,188 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+' ---------- server entry point ----------
+class Main {
++ {static} main(args : String[])
+}
+
+note right of Main::main
+DirectoryAreas.makeAreas()
+DirectoryDoors.makeDoors()
+DirectoryUserGroup.makeUserGroups()
+DirectoryUsers.makeUsers()
+new WebServer()
+(strict order: each one needs the previous)
+end note
+
+class WebServer {
+- {static} PORT : int
+- {static} formatter : DateTimeFormatter
++ WebServer()
+}
+
+class SocketThread {
+- insocked : Socket
+- makeRequest(tokens : String[]) : Request
+- makeRequestReader(tokens : String[]) : RequestReader
+- makeRequestArea(tokens : String[]) : RequestArea
+- makeHeaderAnswer() : String
+- makeJsonAnswer(request : Request) : String
++ run()
+}
+
+WebServer +-right- SocketThread
+
+note right of SocketThread
+inner class
+of WebServer
+end note
+
+' ---------- directories (registries and factories) ----------
+class DirectoryAreas {
+- {static} rootArea : Area
++ {static} makeAreas()
++ {static} findAreaById(id : String) : Area
+}
+
+class DirectoryDoors {
+- {static} allDoors : Door[]
++ {static} makeDoors()
++ {static} findDoorById(id : String) : Door
++ {static} getAllDoors() : Door[]
+}
+
+class DirectoryUserGroup {
+- {static} userGroups : UserGroup[]
++ {static} makeUserGroups()
++ {static} findGroupByName(name : String) : UserGroup
+}
+
+class DirectoryUsers {
+- {static} users : User[]
++ {static} makeUsers()
++ {static} findUserByCredential(credential : String) : User
+}
+
+DirectoryAreas --> "1" Area : "rootArea"
+DirectoryDoors --> "*" Door : "allDoors"
+DirectoryUserGroup --> "*" UserGroup : "userGroups"
+DirectoryUsers --> "*" User : "users"
+
+' ---------- areas: Composite pattern ----------
+abstract class Area {
+# id : String
++ getId() : String
++ {abstract} getDoorsGivingAccess() : Door[]
++ {abstract} findAreaById(id : String) : Area
++ {abstract} getSpaces() : Space[]
+}
+
+class Partition extends Area {
+- children : Area[]
++ Partition(id : String)
++ addArea(area : Area)
++ getDoorsGivingAccess() : Door[]
++ findAreaById(id : String) : Area
++ getSpaces() : Space[]
+}
+
+class Space extends Area {
+- doors : Door[]
++ Space(id : String)
++ addDoor(door : Door)
++ getDoorsGivingAccess() : Door[]
++ findAreaById(id : String) : Area
++ getSpaces() : Space[]
+}
+
+Partition o--> "*" Area : "children"
+Space --> "*" Door : "doors"
+
+note bottom of Partition
+Composite pattern: a Partition groups Spaces
+and/or other Partitions, so permissions can
+be granted to a whole floor or building
+without touching doors one by one.
+end note
+
+class Door {
+- id : String
+- closed : boolean
++ Door(id : String, fromSpace : Space, toSpace : Space)
++ processRequest(request : RequestReader)
++ isClosed() : boolean
++ setClosed(closed : boolean)
++ setState(state : DoorState)
++ getStateName() : String
++ getFromSpace() : Space
++ getToSpace() : Space
++ toJson() : JSONObject
+- doAction(action : String)
+}
+
+Door --> "1" DoorState : "state"
+Door --> "1" Space : "fromSpace\n(where the reader is)"
+Door --> "1" Space : "toSpace\n(space you enter)"
+
+abstract class DoorState <<see package_states>>
+
+' ---------- users: role based access control ----------
+class User {
+- name : String
+- credential : String
++ User(name : String, credential : String, group : UserGroup)
++ getCredential() : String
++ getName() : String
++ getGroupName() : String
++ canSendRequests(now : LocalDateTime) : boolean
++ canDoAction(action : String) : boolean
++ canBeInSpace(space : Space) : boolean
++ toString() : String
+}
+
+class UserGroup {
+- name : String
+- actions : String[]
++ UserGroup(name : String, schedule : Schedule, actions : String[], areas : Area[])
++ getName() : String
++ canSendRequests(now : LocalDateTime) : boolean
++ canDoAction(action : String) : boolean
++ canBeInSpace(space : Space) : boolean
+}
+
+class Schedule {
+- startDate : LocalDate
+- endDate : LocalDate
+- startTime : LocalTime
+- endTime : LocalTime
+- daysOfWeeks : DayOfWeek[]
++ Schedule(startDate, endDate, startTime, endTime, daysOfWeek)
++ canSendRequests(now : LocalDateTime) : boolean
+}
+
+class Actions <<constants>> {
++ {static} LOCK : String
++ {static} UNLOCK : String
++ {static} UNLOCK_SHORTLY : String
++ {static} OPEN : String
++ {static} CLOSE : String
+}
+
+User --> "1" UserGroup : "group"
+UserGroup --> "1" Schedule : "schedule (when)"
+UserGroup --> "*" Area : "areas (where)"
+
+note bottom of UserGroup
+RBAC: a user gets its rights only through
+its group: who (group), what (actions),
+where (areas), when (schedule).
+end note
+
+Main -[hidden]down- WebServer
+WebServer -[hidden]down- DirectoryAreas
+DirectoryAreas -[hidden]right- DirectoryDoors
+DirectoryDoors -[hidden]right- DirectoryUserGroup
+DirectoryUserGroup -[hidden]right- DirectoryUsers
+@enduml

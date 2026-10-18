@@ -1,0 +1,102 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+' State pattern for the door + Observer pattern for the 10 seconds timer
+
+class Door {
+- id : String
+- closed : boolean
++ processRequest(request : RequestReader)
++ setState(state : DoorState)
++ setClosed(closed : boolean)
++ isClosed() : boolean
++ getStateName() : String
+- doAction(action : String)
+}
+
+abstract class DoorState {
+# door : Door
+# name : String
++ DoorState(door : Door)
++ getName() : String
++ open()
++ close()
++ lock()
++ unlock()
++ unlockShortly()
+}
+
+note right of DoorState
+Default behaviour of every action is "not allowed
+in this state". Each subclass overrides only the
+actions that make sense in its state.
+end note
+
+class Unlocked extends DoorState {
++ open()
++ close()
++ lock()
+}
+
+class Locked extends DoorState {
++ open()
++ unlock()
++ unlockShortly()
+}
+
+class UnlockedShortly extends DoorState implements Observer {
+- {static} TIME_LIMIT : int = 10
+- elapsedSeconds : int
++ open()
++ close()
++ update()
+}
+
+class Propped extends DoorState {
++ close()
+}
+
+Door --> "1" DoorState : "state"
+DoorState --> "1" Door : "door"
+
+note bottom of UnlockedShortly
+update() is called every second by the Clock.
+After 10 s: door closed -> Locked,
+door open -> Propped. Then it unsubscribes.
+end note
+
+interface Observable {
++ {abstract} addObserver(observer : Observer)
++ {abstract} deleteObserver(observer : Observer)
+}
+
+interface Observer {
++ {abstract} update()
+}
+
+class Clock implements Observable {
+- {static} instance : Clock
+- timer : Timer
+- observers : Observer[]
+- Clock()
++ {static} getInstance() : Clock
++ addObserver(observer : Observer)
++ deleteObserver(observer : Observer)
+- notifyObservers()
+}
+
+note right of Clock
+Singleton, runs in its own thread
+(Timer + TimerTask every 1000 ms).
+end note
+
+Clock o--> "*" Observer : "observers"
+
+Unlocked ..> Locked : lock()
+Locked ..> Unlocked : unlock()
+Locked ..> UnlockedShortly : unlockShortly()
+UnlockedShortly ..> Locked : after 10 s, closed
+UnlockedShortly ..> Propped : after 10 s, open
+Propped ..> Locked : close()
+@enduml

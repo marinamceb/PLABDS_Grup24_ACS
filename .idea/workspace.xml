@@ -3,12 +3,47 @@
   <component name="ChangeListManager">
     <list default="true" id="31908365-b739-4462-b5ff-269f30404903" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/requests/RequestArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/requests/RequestArea.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/doorstates/DoorState.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/DoorState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/doorstates/Locked.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/Locked.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acs_students-master/src/doorstates/Unlocked.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/Unlocked.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/Actions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/WebServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/WebServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/areas/.DS" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/areas/.DS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/areas/Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/areas/Area.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/areas/Partition.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/areas/Partition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/areas/Space.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/areas/Space.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/directories/.DS" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/.DS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/directories/DirectoryAreas.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/areas/DirectoryAreas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/directories/DirectoryDoors.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/directories/DirectoryUserGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/users/DirectoryUserGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/directories/DirectoryUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/users/DirectoryUsers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/observers/.DS" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/observers/.DS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/observers/Clock.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/observers/Clock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/observers/Observable.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/observers/Observable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/observers/Observer.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/observers/Observer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/requests/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/requests/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/requests/RequestArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/requests/RequestArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/requests/RequestReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/requests/RequestReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/requests/RequestRefresh.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/requests/RequestRefresh.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/states/.DS" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/users/.DS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/states/Door.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doors/Door.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/states/DoorState.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/DoorState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/states/Locked.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/Locked.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/states/Propped.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/Propped.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/states/Unlocked.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/Unlocked.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/states/UnlockedShortly.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/doorstates/UnlockedShortly.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/uml/base_no_states.png" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/base_no_states.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/uml/base_no_states.puml" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/base_no_states.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/uml/package_requests.png" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/package_requests.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/uml/package_requests.puml" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/package_requests.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/uml/package_states.png" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/package_states.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/uml/package_states.puml" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/package_states.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/uml/vells/base_no_states_old.png" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/vells/base_no_states_old.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/uml/vells/base_no_states_old.puml" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/vells/base_no_states_old.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/uml/vells/package_requests_old.png" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/vells/package_requests_old.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/uml/vells/package_requests_old.puml" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/uml/vells/package_requests_old.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/users/.DS" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/users/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/users/Schedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acs_students-master/src/baseNoStates/users/UserGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/acs_students-master/src/users/UserGroup.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,11 +69,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;fita-1&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "fita-1",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/marin/Desktop/UAB/3r Curs/1r Sem/DS/PLABDS_Grup24_ACS",
+    "node.js.detected.package.jshint": "true",
+    "node.js.selected.package.jshint": ""
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\marin\Desktop\UAB\3r Curs\1r Sem\DS\PLABDS_Grup24_ACS\acs_students-master\src" />
+      <recent name="C:\Users\marin\Desktop\UAB\3r Curs\1r Sem\DS\PLABDS_Grup24_ACS\acs_students-master" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

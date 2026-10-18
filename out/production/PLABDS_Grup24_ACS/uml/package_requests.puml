@@ -1,0 +1,73 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+package requests {
+    interface Request {
+    + {abstract} answerToJson() : JSONObject
+    + {abstract} process()
+    + {abstract} toString() : String
+    }
+
+    class RequestRefresh implements Request {
+    - jsonsDoors : JSONObject[]
+    + answerToJson() : JSONObject
+    + process()
+    + toString() : String
+    }
+
+    class RequestReader implements Request {
+    - credential : String
+    - action : String
+    - now : LocalDateTime
+    - doorId : String
+    - userName : String
+    - authorized : boolean
+    - reasons : String[]
+    - doorStateName : String
+    - doorClosed : boolean
+    + answerToJson() : JSONObject
+    + process()
+    - authorize(user : User, door : Door)
+    + addReason(reason : String)
+    + toString() : String
+    + setDoorStateName(name : String)
+    + getAction() : String
+    + isAuthorized() : boolean
+    }
+
+    class RequestArea implements Request {
+    - credential : String
+    - action : String
+    - now : LocalDateTime
+    - areaId : String
+    - requests : RequestReader[]
+    + answerToJson() : JSONObject
+    + process()
+    + getAction() : String
+    + toString() : String
+    }
+}
+
+RequestArea o--> "*" RequestReader : "requests\n(one per door of the area)"
+
+note bottom of RequestArea
+process(): finds the Area, and for each door giving
+access to it makes a RequestReader and processes it.
+end note
+
+class DirectoryAreas
+class DirectoryDoors
+class DirectoryUsers
+class Door
+class User
+class Area
+
+RequestReader ..> DirectoryUsers : finds the user
+RequestReader ..> DirectoryDoors : finds the door
+RequestReader ..> User : authorize()
+RequestReader ..> Door : processRequest()
+RequestArea ..> DirectoryAreas : finds the area
+RequestArea ..> Area : getDoorsGivingAccess()
+RequestRefresh ..> DirectoryDoors : getAllDoors()
+@enduml
